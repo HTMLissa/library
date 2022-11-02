@@ -4,6 +4,12 @@ const cardContainer = document.querySelector(".card-container");
 let myLibrary = [
   { title: "One Piece", author: "Eichiro Oda", totalPages: 300, read: true },
   { title: "Ranma", author: "Rumiko Takahashi", totalPages: 300, read: true },
+  {
+    title: "Detective Conan",
+    author: "Gosho Aoyama",
+    totalPages: 300,
+    read: false,
+  },
 ];
 
 // creating constructor function to create book objects
@@ -30,9 +36,35 @@ function addBookToLibrary(book) {
 
 // creating a function that loops through the array and displays each book on the page
 function createBookCard(myLibrary) {
-  for (let book in myLibrary) {
+  for (let book of myLibrary) {
+    console.log(book);
+    // create new card
     let card = document.createElement("div");
     card.classList.add("card");
+    // add book title to card
+    let title = document.createElement("h2");
+    title.textContent = `Title: ${book.title}`;
+    card.appendChild(title);
+    // add author to card
+    let author = document.createElement("div");
+    author.textContent = `Author: ${book.author}`;
+    card.appendChild(author);
+    // add pages to card
+    let pages = document.createElement("div");
+    pages.textContent = `Total Pages: ${book.totalPages}`;
+    card.appendChild(pages);
+    // add read to card
+    let read = document.createElement("div");
+    read.textContent = `${book.read}`;
+    if (read.textContent == "true") {
+      read.classList.add("already-read");
+      read.textContent = `Already read`;
+    } else {
+      read.classList.add("not-read-yet");
+      read.textContent = `Still have to read`;
+    }
+    card.appendChild(read);
+    // add card to container
     cardContainer.appendChild(card);
   }
 }

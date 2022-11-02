@@ -70,6 +70,26 @@ body {
     1;
 }
 
+.already-read {
+  color: rgb(38, 98, 29);
+}
+
+.already-read:before {
+  position: relative;
+  left: -2px;
+  content: "\2714";
+}
+
+.not-read-yet {
+  color: red;
+}
+
+.not-read-yet:before {
+  position: relative;
+  left: -2px;
+  content: "\2715";
+}
+
 .footer {
   background-color: #e76f51;
 }
