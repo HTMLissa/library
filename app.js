@@ -1,6 +1,9 @@
+const cardContainer = document.querySelector(".card-container");
+
 // creating empty library array
 let myLibrary = [
   { title: "One Piece", author: "Eichiro Oda", totalPages: 300, read: true },
+  { title: "Ranma", author: "Rumiko Takahashi", totalPages: 300, read: true },
 ];
 
 // creating constructor function to create book objects
@@ -28,6 +31,8 @@ function addBookToLibrary(book) {
 // creating a function that loops through the array and displays each book on the page
 function createBookCard(myLibrary) {
   for (let book in myLibrary) {
-    // add here
+    let card = document.createElement("div");
+    card.classList.add("card");
+    cardContainer.appendChild(card);
   }
 }

@@ -53,6 +53,21 @@ body {
 
 .card-container {
   background-color: white;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 40px;
+  padding: 40px;
+}
+
+.card {
+  border-width: 3px;
+  border-style: solid;
+  border-image: linear-gradient(
+      to right,
+      rgba(231, 111, 81, 1),
+      rgba(231, 81, 195, 1)
+    )
+    1;
 }
 
 .footer {
