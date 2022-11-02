@@ -43,16 +43,19 @@ function createBookCard(myLibrary) {
     card.classList.add("card");
     // add book title to card
     let title = document.createElement("h2");
-    title.textContent = `Title: ${book.title}`;
+    title.textContent = `${book.title}`;
     card.appendChild(title);
+    // create container for book info
+    let infoContainer = document.createElement("div");
+    infoContainer.classList.add("info-container");
     // add author to card
     let author = document.createElement("div");
     author.textContent = `Author: ${book.author}`;
-    card.appendChild(author);
+    infoContainer.appendChild(author);
     // add pages to card
     let pages = document.createElement("div");
     pages.textContent = `Total Pages: ${book.totalPages}`;
-    card.appendChild(pages);
+    infoContainer.appendChild(pages);
     // add read to card
     let read = document.createElement("div");
     read.textContent = `${book.read}`;
@@ -63,8 +66,9 @@ function createBookCard(myLibrary) {
       read.classList.add("not-read-yet");
       read.textContent = `Still have to read`;
     }
-    card.appendChild(read);
+    infoContainer.appendChild(read);
     // add card to container
+    card.appendChild(infoContainer);
     cardContainer.appendChild(card);
   }
 }
