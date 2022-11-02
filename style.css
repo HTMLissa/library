@@ -1,0 +1,27 @@
+body {
+  margin: 0px;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 80px 1fr 30px;
+  font-family: "Playfair Display", serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo {
+  padding-left: 40px;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #e76f51;
+}
+
+.main {
+  border: 1px solid red;
+}
+
+.footer {
+  background-color: #e76f51;
+}

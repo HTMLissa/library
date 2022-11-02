@@ -1,5 +1,7 @@
 // creating empty library array
-let myLibrary = [];
+let myLibrary = [
+  { title: "One Piece", author: "Eichiro Oda", totalPages: 300, read: true },
+];
 
 // creating constructor function to create book objects
 function Book(title, author, totalPages, read) {
@@ -21,4 +23,11 @@ function Book(title, author, totalPages, read) {
 // creating function to add book to library array
 function addBookToLibrary(book) {
   myLibrary.push(book);
+}
+
+// creating a function that loops through the array and displays each book on the page
+function createBookCard(myLibrary) {
+  for (let book in myLibrary) {
+    // add here
+  }
 }
