@@ -20,6 +20,30 @@
       <div class="header-logo">Library.</div>
     </header>
     <main class="main">
+      <div class="form-container">
+        <form action="" method="post" class="add-form">
+          <div class="form-field-container title-container">
+            <label for="title">Title:</label>
+            <input type="text" name="title" id="title" />
+          </div>
+          <div class="form-field-container author-container">
+            <label for="author">Author:</label>
+            <input type="text" name="author" id="author" />
+          </div>
+          <div class="form-field-container pages-container">
+            <label for="total-pages"> Total Pages: </label>
+            <input type="text" name="total-pages" id="total-pages" />
+          </div>
+          <div class="form-field-container cover-url-container">
+            <label for="cover-url">Link to Cover Image:</label>
+            <input type="url" name="cover-url" id="cover-url" />
+          </div>
+          <div class="form-field-container read-yet-container">
+            <input type="checkbox" name="read" id="read" />
+            <label for="read">I've read this book already! </label>
+          </div>
+        </form>
+      </div>
       <div class="btn-container">
         <button id="add-book-btn">Add a book</button>
       </div>
