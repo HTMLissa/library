@@ -32,7 +32,6 @@ function addBookToLibrary(book) {
 // creating a function that loops through the array and displays each book on the page
 function createBookCard(myLibrary) {
   for (let book of myLibrary) {
-    console.log(book);
     // create new card
     let card = document.createElement("div");
     card.classList.add("card");
@@ -90,6 +89,22 @@ cancelNewBookBtn.addEventListener("click", function (e) {
   }
 });
 
+// function to clear input field
+function clearInput() {
+  let inputs = document.querySelectorAll("input");
+  for (let input of inputs) {
+    input.value = "";
+  }
+}
+
+// function to clear .card-container so cards won't show up multiple times
+function clearCardContainer() {
+  let cards = document.querySelectorAll(".card");
+  for (let card of cards) {
+    cardContainer.removeChild(card);
+  }
+}
+
 // listening to submit event and prevent default behaviour
 bookForm.addEventListener("submit", function (e) {
   const title = document.querySelector("#title").value;
@@ -98,9 +113,14 @@ bookForm.addEventListener("submit", function (e) {
   const read = document.querySelector("#read").checked;
   // prevent default behaviour and display new book
   e.preventDefault();
+  // clear cardContainer
+  clearCardContainer();
+  // create new book obj
   let book = new Book(title, author, totalPages, read);
   addBookToLibrary(book);
   createBookCard(myLibrary);
+  // clear input fields in form
+  clearInput();
   // remove form from window
   addBookFormContainer.style.display = "none";
 });
