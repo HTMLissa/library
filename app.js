@@ -1,5 +1,7 @@
 const cardContainer = document.querySelector(".card-container");
 const addBookBtn = document.querySelector("#add-book-btn");
+const addBookForm = document.querySelector(".form-container");
+const cancelNewBookBtn = document.querySelector(".cancel-btn");
 
 // creating empty library array
 let myLibrary = [
@@ -76,8 +78,12 @@ function createBookCard(myLibrary) {
 
 // adding functionality to the "add a book" button to pop up a form allowing users to input the details for the new book
 
-function openInputWindow() {
-  let inputContainer = document.createElement("div");
-}
+addBookBtn.addEventListener(
+  "click",
+  () => (addBookForm.style.display = "block")
+);
 
-addBookBtn.addEventListener("click", () => console.log("you clicked me"));
+cancelNewBookBtn.addEventListener(
+  "click",
+  () => (addBookForm.style.display = "none")
+);
