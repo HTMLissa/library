@@ -78,12 +78,20 @@ function createBookCard(myLibrary) {
 
 // adding functionality to the "add a book" button to pop up a form allowing users to input the details for the new book
 
-addBookBtn.addEventListener(
-  "click",
-  () => (addBookForm.style.display = "block")
-);
+addBookBtn.addEventListener("click", () => {
+  addBookForm.style.display = "block";
+  //   adding blur effect to cards
+  let cards = document.querySelectorAll(".card");
+  for (let card of cards) {
+    card.classList.add("blur");
+  }
+});
 
-cancelNewBookBtn.addEventListener(
-  "click",
-  () => (addBookForm.style.display = "none")
-);
+cancelNewBookBtn.addEventListener("click", () => {
+  addBookForm.style.display = "none";
+  //   removing blur effect
+  let cards = document.querySelectorAll(".card");
+  for (let card of cards) {
+    card.classList.remove("blur");
+  }
+});

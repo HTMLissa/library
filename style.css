@@ -58,6 +58,8 @@ body {
 }
 
 .form-container {
+  background-color: white;
+  z-index: 1;
   position: absolute;
   align-self: center;
   justify-self: center;
@@ -70,6 +72,9 @@ body {
       rgba(231, 81, 195, 1)
     )
     1;
+  box-shadow: 6px 6px 20px -1px rgba(153, 153, 153, 0.75);
+  -webkit-box-shadow: 6px 6px 20px -1px rgba(153, 153, 153, 0.75);
+  -moz-box-shadow: 6px 6px 20px -1px rgba(153, 153, 153, 0.75);
   display: none;
 }
 
@@ -168,6 +173,10 @@ input:focus {
   position: relative;
   left: -2px;
   content: "\2715";
+}
+
+.blur {
+  filter: blur(8px);
 }
 
 .footer {
