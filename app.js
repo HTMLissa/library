@@ -1,18 +1,19 @@
 const cardContainer = document.querySelector(".card-container");
 const addBookBtn = document.querySelector("#add-book-btn");
-const addBookForm = document.querySelector(".form-container");
+const addBookFormContainer = document.querySelector(".form-container");
+const bookForm = document.querySelector(".add-form");
 const cancelNewBookBtn = document.querySelector(".cancel-btn");
 
 // creating empty library array
 let myLibrary = [
-  { title: "One Piece", author: "Eichiro Oda", totalPages: 300, read: true },
-  { title: "Ranma", author: "Rumiko Takahashi", totalPages: 300, read: true },
-  {
-    title: "Detective Conan",
-    author: "Gosho Aoyama",
-    totalPages: 300,
-    read: false,
-  },
+  //   { title: "One Piece", author: "Eichiro Oda", totalPages: 300, read: true },
+  //   { title: "Ranma", author: "Rumiko Takahashi", totalPages: 300, read: true },
+  //   {
+  //     title: "Detective Conan",
+  //     author: "Gosho Aoyama",
+  //     totalPages: 300,
+  //     read: false,
+  //   },
 ];
 
 // creating constructor function to create book objects
@@ -21,15 +22,6 @@ function Book(title, author, totalPages, read) {
   this.author = author;
   this.totalPages = totalPages;
   this.read = read;
-  this.info = function () {
-    let readYet;
-    if (read) {
-      readYet = "already read";
-    } else {
-      readYet = "not read yet";
-    }
-    return `${title} by ${author}, ${totalPages} pages, ${readYet}`;
-  };
 }
 
 // creating function to add book to library array
@@ -79,7 +71,7 @@ function createBookCard(myLibrary) {
 // adding functionality to the "add a book" button to pop up a form allowing users to input the details for the new book
 
 addBookBtn.addEventListener("click", () => {
-  addBookForm.style.display = "block";
+  addBookFormContainer.style.display = "block";
   //   adding blur effect to cards
   let cards = document.querySelectorAll(".card");
   for (let card of cards) {
@@ -87,11 +79,28 @@ addBookBtn.addEventListener("click", () => {
   }
 });
 
-cancelNewBookBtn.addEventListener("click", () => {
-  addBookForm.style.display = "none";
+cancelNewBookBtn.addEventListener("click", function (e) {
+  // preventing default behaviour so existing cards won't disappear on click
+  e.preventDefault();
+  addBookFormContainer.style.display = "none";
   //   removing blur effect
   let cards = document.querySelectorAll(".card");
   for (let card of cards) {
     card.classList.remove("blur");
   }
+});
+
+// listening to submit event and prevent default behaviour
+bookForm.addEventListener("submit", function (e) {
+  const title = document.querySelector("#title").value;
+  const author = document.querySelector("#author").value;
+  const totalPages = document.querySelector("#total-pages").value;
+  const read = document.querySelector("#read").checked;
+  // prevent default behaviour and display new book
+  e.preventDefault();
+  let book = new Book(title, author, totalPages, read);
+  addBookToLibrary(book);
+  createBookCard(myLibrary);
+  // remove form from window
+  addBookFormContainer.style.display = "none";
 });
