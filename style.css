@@ -90,10 +90,12 @@ body {
 }
 
 input[type="text"],
+input[type="number"],
 input[type="url"] {
   background-color: rgb(248, 237, 244);
   border: none;
   height: 25px;
+  font-family: "Playfair Display", serif;
 }
 
 input[type="checkbox"] {
@@ -149,6 +151,9 @@ input:focus {
 .info-container {
   padding-left: 40px;
   padding-bottom: 40px;
+  padding-right: 40px;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
 }
 
 .info-container div {
@@ -173,6 +178,11 @@ input:focus {
   position: relative;
   left: -2px;
   content: "\2715";
+}
+
+.remove-btn {
+  justify-self: end;
+  margin-top: 5px;
 }
 
 .blur {

@@ -61,6 +61,11 @@ function createBookCard(myLibrary) {
       read.textContent = `Still have to read`;
     }
     infoContainer.appendChild(read);
+    // add remove button to card
+    let removeBtn = document.createElement("button");
+    removeBtn.setAttribute("class", "btn remove-btn");
+    removeBtn.textContent = "Remove";
+    infoContainer.appendChild(removeBtn);
     // add card to container
     card.appendChild(infoContainer);
     cardContainer.appendChild(card);
