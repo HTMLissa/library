@@ -153,7 +153,8 @@ input:focus {
   padding-bottom: 40px;
   padding-right: 40px;
   display: grid;
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 30px), 1fr;
+  gap: 8px;
 }
 
 .info-container div {
@@ -180,9 +181,9 @@ input:focus {
   content: "\2715";
 }
 
-.remove-btn {
-  justify-self: end;
-  margin-top: 5px;
+.card-btn-container {
+  display: grid;
+  gap: 8px;
 }
 
 .blur {

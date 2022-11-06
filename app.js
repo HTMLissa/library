@@ -61,6 +61,19 @@ function createBookCard(myLibrary) {
       read.textContent = `Still have to read`;
     }
     infoContainer.appendChild(read);
+    // add container for buttons
+    let cardBtnContainer = document.createElement("div");
+    cardBtnContainer.setAttribute("class", "card-btn-container");
+    infoContainer.appendChild(cardBtnContainer);
+    // add button to toggle read status
+    let readBtn = document.createElement("button");
+    readBtn.setAttribute("class", "btn read-btn");
+    readBtn.setAttribute("data-index", myLibrary.indexOf(book));
+    readBtn.textContent = "Update Read Status";
+    readBtn.addEventListener("click", () => {
+      toggleReadStatus(readBtn, read);
+    });
+    cardBtnContainer.appendChild(readBtn);
     // add remove button to card
     let removeBtn = document.createElement("button");
     removeBtn.setAttribute("class", "btn remove-btn");
@@ -71,7 +84,8 @@ function createBookCard(myLibrary) {
       clearCardContainer();
       createBookCard(myLibrary);
     });
-    infoContainer.appendChild(removeBtn);
+    cardBtnContainer.appendChild(removeBtn);
+
     // add card to container
     card.appendChild(infoContainer);
     cardContainer.appendChild(card);
@@ -137,8 +151,23 @@ bookForm.addEventListener("submit", function (e) {
 });
 
 // adding function to remove btn on cards
-
 function deleteCard(btn) {
   let index = btn.getAttribute("data-index");
   myLibrary.splice(index, 1);
+}
+
+// adding function to toggle the read status of each card
+function toggleReadStatus(btn, toggledElement) {
+  let index = btn.getAttribute("data-index");
+  if (myLibrary[index].read == true) {
+    toggledElement.classList.remove("already-read");
+    toggledElement.classList.add("not-read-yet");
+    toggledElement.textContent = "Still have to read";
+    myLibrary[index].read = false;
+  } else if (myLibrary[index].read == false) {
+    toggledElement.classList.remove("not-read-yet");
+    toggledElement.classList.add("already-read");
+    toggledElement.textContent = "Already read";
+    myLibrary[index].read = true;
+  }
 }
