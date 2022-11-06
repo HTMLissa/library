@@ -64,7 +64,13 @@ function createBookCard(myLibrary) {
     // add remove button to card
     let removeBtn = document.createElement("button");
     removeBtn.setAttribute("class", "btn remove-btn");
+    removeBtn.setAttribute("data-index", myLibrary.indexOf(book));
     removeBtn.textContent = "Remove";
+    removeBtn.addEventListener("click", function () {
+      deleteCard(removeBtn);
+      clearCardContainer();
+      createBookCard(myLibrary);
+    });
     infoContainer.appendChild(removeBtn);
     // add card to container
     card.appendChild(infoContainer);
@@ -129,3 +135,10 @@ bookForm.addEventListener("submit", function (e) {
   // remove form from window
   addBookFormContainer.style.display = "none";
 });
+
+// adding function to remove btn on cards
+
+function deleteCard(btn) {
+  let index = btn.getAttribute("data-index");
+  myLibrary.splice(index, 1);
+}
