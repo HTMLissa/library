@@ -4,117 +4,168 @@ const addBookFormContainer = document.querySelector(".form-container");
 const bookForm = document.querySelector(".add-form");
 const cancelNewBookBtn = document.querySelector(".cancel-btn");
 
-// creating empty library array
+// ****************************************
+// CREATING EMPTY LIBRARY ARRAY
 let myLibrary = [
-  //   { title: "One Piece", author: "Eichiro Oda", totalPages: 300, read: true },
-  //   { title: "Ranma", author: "Rumiko Takahashi", totalPages: 300, read: true },
-  //   {
-  //     title: "Detective Conan",
-  //     author: "Gosho Aoyama",
-  //     totalPages: 300,
-  //     read: false,
-  //   },
+  // { title: "One Piece", author: "Eichiro Oda", totalPages: 300, read: true },
 ];
 
-// creating constructor function to create book objects
-function Book(title, author, totalPages, read) {
-  this.title = title;
-  this.author = author;
-  this.totalPages = totalPages;
-  this.read = read;
+// ****************************************
+// CREATING CLASS TO BUILD NEW BOOK OBJECTS
+class Book {
+  constructor(title, author, totalPages, read) {
+    this.title = title;
+    this.author = author;
+    this.totalPages = totalPages;
+    this.read = read;
+  }
 }
 
-// creating function to add book to library array
+// ****************************************
+// FUNCTION TO ADD BOOK-OBJ TO LIBRARY ARR
 function addBookToLibrary(book) {
   myLibrary.push(book);
 }
 
-// creating a function that loops through the array and displays each book on the page
-function createBookCard(myLibrary) {
-  for (let book of myLibrary) {
+// ****************************************
+// LOOP OVER LIBRARY-ARR & DISPLAY EACH ITEM
+function createBookCard(library) {
+  for (let book of library) {
     // create new card
-    let card = document.createElement("div");
-    card.classList.add("card");
+    let card = makeCard();
     // add book title to card
-    let title = document.createElement("h2");
-    title.textContent = `${book.title}`;
+    let title = addTitle(book);
     card.appendChild(title);
     // create container for book info
-    let infoContainer = document.createElement("div");
-    infoContainer.classList.add("info-container");
+    let infoContainer = makeInfoContainer();
     // add author to card
-    let author = document.createElement("div");
-    author.textContent = `Author: ${book.author}`;
+    let author = addAuthor(book);
     infoContainer.appendChild(author);
     // add pages to card
-    let pages = document.createElement("div");
-    pages.textContent = `Total Pages: ${book.totalPages}`;
+    let pages = addPages(book);
     infoContainer.appendChild(pages);
     // add read to card
-    let read = document.createElement("div");
-    read.textContent = `${book.read}`;
-    if (read.textContent == "true") {
-      read.classList.add("already-read");
-      read.textContent = `Already read`;
-    } else {
-      read.classList.add("not-read-yet");
-      read.textContent = `Still have to read`;
-    }
+    let read = addRead(book);
     infoContainer.appendChild(read);
     // add container for buttons
-    let cardBtnContainer = document.createElement("div");
-    cardBtnContainer.setAttribute("class", "card-btn-container");
+    let cardBtnContainer = makeCardBtnContainer();
     infoContainer.appendChild(cardBtnContainer);
     // add button to toggle read status
-    let readBtn = document.createElement("button");
-    readBtn.setAttribute("class", "btn read-btn");
-    readBtn.setAttribute("data-index", myLibrary.indexOf(book));
-    readBtn.textContent = "Update Read Status";
+    let readBtn = makeReadBtn(book);
     readBtn.addEventListener("click", () => {
       toggleReadStatus(readBtn, read);
     });
     cardBtnContainer.appendChild(readBtn);
     // add remove button to card
-    let removeBtn = document.createElement("button");
-    removeBtn.setAttribute("class", "btn remove-btn");
-    removeBtn.setAttribute("data-index", myLibrary.indexOf(book));
-    removeBtn.textContent = "Remove";
+    let removeBtn = makeRemoveBtn(book);
     removeBtn.addEventListener("click", function () {
       deleteCard(removeBtn);
       clearCardContainer();
       createBookCard(myLibrary);
     });
     cardBtnContainer.appendChild(removeBtn);
-
     // add card to container
     card.appendChild(infoContainer);
     cardContainer.appendChild(card);
   }
 }
 
-// adding functionality to the "add a book" button to pop up a form allowing users to input the details for the new book
+function makeCard() {
+  let card = document.createElement("div");
+  card.classList.add("card");
+  return card;
+}
 
-addBookBtn.addEventListener("click", () => {
+function addTitle(book) {
+  let title = document.createElement("h2");
+  title.textContent = `${book.title}`;
+  return title;
+}
+
+function makeInfoContainer() {
+  let infoContainer = document.createElement("div");
+  infoContainer.classList.add("info-container");
+  return infoContainer;
+}
+
+function addAuthor(book) {
+  let author = document.createElement("div");
+  author.textContent = `Author: ${book.author}`;
+  return author;
+}
+
+function addPages(book) {
+  let pages = document.createElement("div");
+  pages.textContent = `Total Pages: ${book.totalPages}`;
+  return pages;
+}
+
+function addRead(book) {
+  let read = document.createElement("div");
+  read.textContent = `${book.read}`;
+  if (read.textContent == "true") {
+    read.classList.add("already-read");
+    read.textContent = `Already read`;
+  } else {
+    read.classList.add("not-read-yet");
+    read.textContent = `Still have to read`;
+  }
+  return read;
+}
+
+function makeCardBtnContainer() {
+  let cardBtnContainer = document.createElement("div");
+  cardBtnContainer.setAttribute("class", "card-btn-container");
+  return cardBtnContainer;
+}
+
+function makeReadBtn(book) {
+  let readBtn = document.createElement("button");
+  readBtn.setAttribute("class", "btn read-btn");
+  readBtn.setAttribute("data-index", myLibrary.indexOf(book));
+  readBtn.textContent = "Update Read Status";
+  return readBtn;
+}
+
+function makeRemoveBtn(book) {
+  let removeBtn = document.createElement("button");
+  removeBtn.setAttribute("class", "btn remove-btn");
+  removeBtn.setAttribute("data-index", myLibrary.indexOf(book));
+  removeBtn.textContent = "Remove";
+  return removeBtn;
+}
+
+// ****************************************
+// ADDING FUNCTIONALITY TO THE "ADD A BOOK" BTN TO POP UP A FORM ALLOWING USERS TO INPUT BOOK DETAILS
+addBookBtn.addEventListener("click", showForm);
+
+function showForm() {
+  // display form
   addBookFormContainer.style.display = "block";
-  //   adding blur effect to cards
+  // loop over existing cards and add blur effect
   let cards = document.querySelectorAll(".card");
   for (let card of cards) {
     card.classList.add("blur");
   }
-});
+}
 
+// ****************************************
+// ADDING FUNCTIONALITY TO CANCEL-BTN
 cancelNewBookBtn.addEventListener("click", function (e) {
   // preventing default behaviour so existing cards won't disappear on click
   e.preventDefault();
-  addBookFormContainer.style.display = "none";
-  //   removing blur effect
-  let cards = document.querySelectorAll(".card");
-  for (let card of cards) {
-    card.classList.remove("blur");
-  }
+  cancelNewBook();
 });
 
-// function to clear input field
+function cancelNewBook() {
+  addBookFormContainer.style.display = "none";
+  // removing blur effect
+  let cards = document.querySelectorAll(".card");
+  card.classList.remove("blur");
+}
+
+// ****************************************
+// FUNCTION TO CLEAR INPUT FIELD
 function clearInput() {
   let inputs = document.querySelectorAll("input");
   for (let input of inputs) {
@@ -122,7 +173,8 @@ function clearInput() {
   }
 }
 
-// function to clear .card-container so cards won't show up multiple times
+// ****************************************
+// FUNCTION TO CLEAR CARD CONTAINER SO CARDS WON'T SHOW UP MULTIPLE TIMES
 function clearCardContainer() {
   let cards = document.querySelectorAll(".card");
   for (let card of cards) {
@@ -130,15 +182,19 @@ function clearCardContainer() {
   }
 }
 
-// listening to submit event and prevent default behaviour
+// ****************************************
+// LISTENING FOR SUBMIT EVENT AND PREVENT DEFAULT BEHAVIOUR
 bookForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  submitForm();
+});
+
+function submitForm() {
   const title = document.querySelector("#title").value;
   const author = document.querySelector("#author").value;
   const totalPages = document.querySelector("#total-pages").value;
   const read = document.querySelector("#read").checked;
-  // prevent default behaviour and display new book
-  e.preventDefault();
-  // clear cardContainer
+  // clear card container
   clearCardContainer();
   // create new book obj
   let book = new Book(title, author, totalPages, read);
@@ -148,15 +204,17 @@ bookForm.addEventListener("submit", function (e) {
   clearInput();
   // remove form from window
   addBookFormContainer.style.display = "none";
-});
+}
 
-// adding function to remove btn on cards
+// ****************************************
+// FUNCTION TO REMOVE CARDS
 function deleteCard(btn) {
   let index = btn.getAttribute("data-index");
   myLibrary.splice(index, 1);
 }
 
-// adding function to toggle the read status of each card
+// ****************************************
+// FUNCTION TO TOGGLE READ STATUS ON CARDS
 function toggleReadStatus(btn, toggledElement) {
   let index = btn.getAttribute("data-index");
   if (myLibrary[index].read == true) {
